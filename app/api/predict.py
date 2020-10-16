@@ -1,5 +1,9 @@
 import logging
 import random
+import joblib
+from joblib import load
+# .strip()
+pipeline = load(r'assets\pipeline.joblib')
 
 from fastapi import APIRouter
 import pandas as pd
@@ -7,6 +11,7 @@ from pydantic import BaseModel, Field, validator
 
 log = logging.getLogger(__name__)
 router = APIRouter()
+
 
 
 class Item(BaseModel):
@@ -27,8 +32,11 @@ class Item(BaseModel):
         return value
 
 
+def get_prediction(input):
+    return prediction
+
 @router.post('/predict')
-async def predict(item: Item):
+async def predict(item: str):
     """
     ## How to use:
     * Click "try it out."
@@ -44,11 +52,7 @@ async def predict(item: Item):
     - Whether or not the kickstarter is likely to be a success or not.
     """
 
-    X_new = item.to_df()
-    log.info(X_new)
-    y_pred = random.choice([True, False])
-    y_pred_proba = random.random() / 2 + 0.5
+    success_failure = get_prediction(item)
     return {
-        'prediction': y_pred,
-        'probability': y_pred_proba
+        success_failure
     }
