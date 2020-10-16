@@ -30,19 +30,18 @@ class Item(BaseModel):
 @router.post('/predict')
 async def predict(item: Item):
     """
-    Make random baseline predictions for classification problem 🔮
-
-    ### Request Body
-    - `x1`: positive float
-    - `x2`: integer
-    - `x3`: string
-
-    ### Response
-    - `prediction`: boolean, at random
-    - `predict_proba`: float between 0.5 and 1.0, 
-    representing the predicted class's probability
-
-    Replace the placeholder docstring and fake predictions with your own model.
+    ## How to use:
+    * Click "try it out."
+    * Enter various items in the kickstart campaign needed
+    * Monetary goal, time live, etc
+    * This will give a response of whether or not the campaign is likely to succeed
+    ## Needed Info:
+    - `item`: item1
+    - `item`: item2
+    - `item`: item3
+    - `item`: item4
+    ## Response:
+    - Whether or not the kickstarter is likely to be a success or not.
     """
 
     X_new = item.to_df()
